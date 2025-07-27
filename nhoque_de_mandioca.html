@@ -4,70 +4,73 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nhoque de Mandioca</title>
-  <link rel="stylesheet" href="style.css" />
   <style>
-    input[type="number"] {
-      width: 60px;
-      padding: 4px;
-      margin-left: 10px;
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 1em;
+      background-color: #fffef5;
+    }
+    h1 {
+      color: #8B4513;
+    }
+    label {
+      font-weight: bold;
+    }
+    ul, ol {
+      padding-left: 1.5em;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Nhoque de Mandioca</h1>
-    <p><a href="index.html">← Voltar para lista</a></p>
+  <h1>Nhoque de Mandioca</h1>
 
-    <h2>Porções</h2>
-    <p>Receita base para <strong id="porcao-base">4</strong> porções.</p>
-    <label>
-      Quero fazer para:
-      <input type="number" id="nova-porcao" min="1" value="4" />
-      porções
-    </label>
+  <label for="porcoes">Porções:</label>
+  <input type="number" id="porcoes" value="1" min="1" data-original="1" />
 
-    <h2>Ingredientes</h2>
-    <ul id="ingredientes">
-      <li data-qtd="1000">1 kg de mandioca</li>
-      <li data-qtd="1">1 ovo</li>
-      <li data-qtd="1">1 colher (sopa) de margarina</li>
-      <li data-qtd="2">2 xícaras de farinha de trigo</li>
-      <li data-qtd="1">1 pitada de sal</li>
-    </ul>
+  <h2>Ingredientes</h2>
+  <ul>
+    <li><span data-qtd="1" data-unidade="kg">1</span> kg de mandioca</li>
+    <li><span data-qtd="1" data-unidade="">1</span> ovo</li>
+    <li><span data-qtd="1" data-unidade="colher (sopa)">1</span> colher (sopa) de margarina</li>
+    <li><span data-qtd="2" data-unidade="xícaras">2</span> xícaras de farinha de trigo</li>
+    <li><span data-qtd="1" data-unidade="pitada">1</span> pitada de sal</li>
+  </ul>
 
-    <h2>Modo de preparo</h2>
-    <ol>
-      <li>Descasque a mandioca, corte em pedaços e coloque para cozinhar em água com sal.</li>
-      <li>Assim que estiver bem mole, escorra e amasse com amassador de batata.</li>
-      <li>Coloque o restante dos ingredientes e amasse bem.</li>
-      <li>Coloque a massa sobre a mesa, faça rolinhos e corte.</li>
-      <li>Se precisar, coloque um pouquinho de farinha na mesa.</li>
-      <li>Leve ao fogo em uma panela com água, um fio de óleo e uma pitada de sal.</li>
-      <li>Coloque os nhoques aos poucos. Quando começarem a subir, é só retirar e colocar numa vasilha.</li>
-      <li>Use o molho de sua preferência.</li>
-    </ol>
-  </div>
+  <h2>Modo de Preparo</h2>
+  <ol>
+    <li>Descasque a mandioca, corte em pedaços e coloque para cozinhar em água com sal.</li>
+    <li>Assim que estiver bem mole, escorra e amasse com amassador de batata.</li>
+    <li>Coloque o restante dos ingredientes e amasse bem.</li>
+    <li>Coloque a massa sobre a mesa, faça rolinhos e corte.</li>
+    <li>Se precisar, coloque um pouquinho de farinha na mesa.</li>
+    <li>Leve ao fogo em uma panela com água, um fio de óleo e uma pitada de sal.</li>
+    <li>Coloque os nhoques aos poucos. Quando começarem a subir, é só retirar e colocar numa vasilha.</li>
+    <li>Usar o molho de sua preferência.</li>
+  </ol>
 
   <script>
-    const basePorcoes = 4;
-    const input = document.getElementById('nova-porcao');
-    const lista = document.querySelectorAll('#ingredientes li');
+    function formatarQuantidade(valor) {
+      return Number.isInteger(valor) ? valor : valor.toFixed(2);
+    }
 
-    input.addEventListener('input', () => {
-      const novaPorcao = parseFloat(input.value);
-      lista.forEach(li => {
-        const qtdBase = parseFloat(li.dataset.qtd);
-        if (!isNaN(qtdBase)) {
-          const novaQtd = (qtdBase * novaPorcao / basePorcoes).toFixed(2);
-          let texto = li.textContent;
-
-          // Remove qualquer número do início
-          texto = texto.replace(/^[^a-zA-Z]+/, '');
-          // Atualiza com nova quantidade
-          li.textContent = `${novaQtd} ${texto}`;
-        }
-      });
+    document.getElementById('porcoes').addEventListener('input', function () {
+      if (this.value < 1) this.value = 1;
+      atualizarIngredientes();
     });
+
+    function atualizarIngredientes() {
+      const porcoes = parseInt(document.getElementById('porcoes').value);
+      const ingredientes = document.querySelectorAll('[data-qtd]');
+      const qtdOriginal = parseInt(document.getElementById('porcoes').dataset.original);
+      const fator = porcoes / qtdOriginal;
+
+      ingredientes.forEach(ingrediente => {
+        const novaQtd = parseFloat(ingrediente.dataset.qtd) * fator;
+        ingrediente.innerText = formatarQuantidade(novaQtd) + ' ' + ingrediente.dataset.unidade;
+      });
+    }
   </script>
 </body>
 </html>
