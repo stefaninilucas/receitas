@@ -57,38 +57,6 @@
     <li>Usar o molho de sua preferência.</li>
   </ol>
 
-  <script>
-    const porcoesInput = document.getElementById('porcoes');
-    const porcaoBase = 3;
-
-    // Função para formatar o número (sem casas decimais se for inteiro)
-    function formatarQuantidade(valor) {
-      return Number.isInteger(valor) ? valor : valor.toFixed(2);
-    }
-
-    // Atualiza as quantidades dos ingredientes
-    function atualizarIngredientes() {
-      let novaPorcao = parseInt(porcoesInput.value);
-
-      if (!novaPorcao || novaPorcao < 1) {
-        novaPorcao = 1;
-        porcoesInput.value = 1;
-      }
-
-      const fator = novaPorcao / porcaoBase;
-      document.querySelectorAll('.qtd').forEach(span => {
-        const baseQtd = parseFloat(span.dataset.qtd);
-        const unidade = span.dataset.unidade;
-        const novaQtd = baseQtd * fator;
-        span.textContent = `${formatarQuantidade(novaQtd)}`;
-        if (unidade) span.textContent += ` ${unidade}`;
-      });
-    }
-
-    porcoesInput.addEventListener('input', atualizarIngredientes);
-
-    // Inicializa com os valores certos ao carregar
-    atualizarIngredientes();
-  </script>
+  <script src="calculadora.js"></script>
 </body>
 </html>
