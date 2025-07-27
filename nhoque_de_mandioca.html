@@ -18,6 +18,10 @@
     label {
       font-weight: bold;
     }
+    input[type="number"] {
+      width: 60px;
+      margin-left: 0.5em;
+    }
     ul, ol {
       padding-left: 1.5em;
     }
@@ -26,16 +30,19 @@
 <body>
   <h1>Nhoque de Mandioca</h1>
 
-  <label for="porcoes">Porções:</label>
-  <input type="number" id="porcoes" value="1" min="1" data-original="1" />
+  <p>
+    <label for="porcoes">Porções:</label>
+    <input type="number" id="porcoes" value="3" min="1" />
+    <span id="porcao-base">(base da receita: 3 porções)</span>
+  </p>
 
   <h2>Ingredientes</h2>
   <ul>
-    <li><span data-qtd="1" data-unidade="kg">1</span> kg de mandioca</li>
-    <li><span data-qtd="1" data-unidade="">1</span> ovo</li>
-    <li><span data-qtd="1" data-unidade="colher (sopa)">1</span> colher (sopa) de margarina</li>
-    <li><span data-qtd="2" data-unidade="xícaras">2</span> xícaras de farinha de trigo</li>
-    <li><span data-qtd="1" data-unidade="pitada">1</span> pitada de sal</li>
+    <li><span class="qtd" data-qtd="1" data-unidade="kg">1</span> kg de mandioca</li>
+    <li><span class="qtd" data-qtd="1" data-unidade="">1</span> ovo</li>
+    <li><span class="qtd" data-qtd="1" data-unidade="colher (sopa)">1</span> colher (sopa) de margarina</li>
+    <li><span class="qtd" data-qtd="2" data-unidade="xícaras">2</span> xícaras de farinha de trigo</li>
+    <li><span class="qtd" data-qtd="1" data-unidade="pitada">1</span> pitada de sal</li>
   </ul>
 
   <h2>Modo de Preparo</h2>
@@ -51,26 +58,37 @@
   </ol>
 
   <script>
+    const porcoesInput = document.getElementById('porcoes');
+    const porcaoBase = 3;
+
+    // Função para formatar o número (sem casas decimais se for inteiro)
     function formatarQuantidade(valor) {
       return Number.isInteger(valor) ? valor : valor.toFixed(2);
     }
 
-    document.getElementById('porcoes').addEventListener('input', function () {
-      if (this.value < 1) this.value = 1;
-      atualizarIngredientes();
-    });
-
+    // Atualiza as quantidades dos ingredientes
     function atualizarIngredientes() {
-      const porcoes = parseInt(document.getElementById('porcoes').value);
-      const ingredientes = document.querySelectorAll('[data-qtd]');
-      const qtdOriginal = parseInt(document.getElementById('porcoes').dataset.original);
-      const fator = porcoes / qtdOriginal;
+      let novaPorcao = parseInt(porcoesInput.value);
 
-      ingredientes.forEach(ingrediente => {
-        const novaQtd = parseFloat(ingrediente.dataset.qtd) * fator;
-        ingrediente.innerText = formatarQuantidade(novaQtd) + ' ' + ingrediente.dataset.unidade;
+      if (!novaPorcao || novaPorcao < 1) {
+        novaPorcao = 1;
+        porcoesInput.value = 1;
+      }
+
+      const fator = novaPorcao / porcaoBase;
+      document.querySelectorAll('.qtd').forEach(span => {
+        const baseQtd = parseFloat(span.dataset.qtd);
+        const unidade = span.dataset.unidade;
+        const novaQtd = baseQtd * fator;
+        span.textContent = `${formatarQuantidade(novaQtd)}`;
+        if (unidade) span.textContent += ` ${unidade}`;
       });
     }
+
+    porcoesInput.addEventListener('input', atualizarIngredientes);
+
+    // Inicializa com os valores certos ao carregar
+    atualizarIngredientes();
   </script>
 </body>
 </html>
