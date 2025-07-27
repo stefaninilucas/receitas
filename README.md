@@ -22,4 +22,4 @@ Manter um registro acessível das minhas receitas favoritas, praticar um pouco d
 
 ---
 
-> Acesse o site aqui: [https://seu-usuario.github.io/receitas](https://seu-usuario.github.io/receitas)
+> Acesse o site aqui: [https://stefaninilucas.github.io/receitas](https://stefaninilucas.github.io/receitas)
