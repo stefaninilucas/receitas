@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- 📝 Altere o título da aba do navegador para o nome da receita -->
+  <title>Nome da Receita</title>
+  
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 1em;
+      background-color: #fffef5;
+    }
+    h1 {
+      color: #8B4513;
+    }
+    label {
+      font-weight: bold;
+    }
+    input[type="number"] {
+      width: 60px;
+      margin-left: 0.5em;
+    }
+    ul, ol {
+      padding-left: 1.5em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 📝 Altere o nome da receita aqui -->
+  <h1>Nome da Receita</h1>
+
+  <p>
+    <!-- 📝 Altere o valor inicial (value) e o data-base para o número de porções original da receita -->
+    <label for="porcoes">Porções:</label>
+    <input type="number" id="porcoes" value="4" min="1" data-base="4" />
+    <span id="porcao-base">(base da receita: 4 porções)</span>
+  </p>
+
+  <h2>Ingredientes</h2>
+  <ul>
+    <!-- 
+      📝 Para cada ingrediente:
+      - Coloque a quantidade base no conteúdo do <span>
+      - Use data-qtd para a quantidade base
+      - Use data-unidade para a unidade de medida
+    -->
+    <li><span class="qtd" data-qtd="1" data-unidade="kg">1</span> kg de ingrediente 1</li>
+    <li><span class="qtd" data-qtd="2" data-unidade="xícaras">2</span> xícaras de ingrediente 2</li>
+    <li><span class="qtd" data-qtd="1" data-unidade="">1</span> unidade de ingrediente 3</li>
+    <!-- ➕ Adicione mais ingredientes conforme necessário -->
+  </ul>
+
+  <h2>Modo de Preparo</h2>
+  <ol>
+    <!-- 📝 Descreva cada passo do preparo aqui -->
+    <li>Passo 1...</li>
+    <li>Passo 2...</li>
+    <li>Passo 3...</li>
+    <!-- ➕ Adicione mais passos conforme necessário -->
+  </ol>
+
+  <!-- 📌 Esse script calcula automaticamente as quantidades com base nas porções -->
+  <script src="../calculadora.js"></script>
+</body>
+</html>
