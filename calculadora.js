@@ -8,23 +8,33 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function atualizarIngredientes() {
-    let novaPorcao = parseFloat(porcoesInput.value);
+    let novaPorcao = porcoesInput.value === "" ? "" : parseFloat(porcoesInput.value);
 
-    if (!novaPorcao || novaPorcao < 1) {
-      novaPorcao = 1;
-      porcoesInput.value = 1;
+    if (novaPorcao === "" || isNaN(novaPorcao) || novaPorcao < 0) {
+      // Se vazio, não atualiza quantidades
+      qtdSpans.forEach(span => {
+        span.textContent = span.dataset.qtd;
+      });
+      return;
     }
 
     const fator = novaPorcao / porcaoBase;
 
     qtdSpans.forEach(span => {
       const baseQtd = parseFloat(span.dataset.qtd);
-      const unidade = span.dataset.unidade;
       const novaQtd = baseQtd * fator;
-      span.textContent = `${formatarQuantidade(novaQtd)}${unidade ? ' ' + unidade : ''}`;
+      span.textContent = formatarQuantidade(novaQtd);
     });
   }
 
-  porcoesInput.addEventListener('input', atualizarIngredientes);
+  porcoesInput.addEventListener('input', () => {
+    let valor = parseInt(porcoesInput.value, 10);
+
+    if (isNaN(valor) || valor < 0) {
+      valor = 0;
+    }
+    porcoesInput.value = valor;
+    atualizarIngredientes();
+  });
   atualizarIngredientes();
 });
