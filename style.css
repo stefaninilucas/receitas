@@ -1,13 +1,15 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #fff9f1;
+  background-color: #fffef5;
   margin: 0;
-  padding: 20px;
+  padding: 1em;
   color: #333;
+  max-width: 600px;      
+  margin: auto;          
 }
 
 h1 {
-  color: #c97d60;
+  color: #8B4513;        
   font-size: 2em;
 }
 
@@ -25,12 +27,21 @@ a:hover {
   text-decoration: underline;
 }
 
-ul {
-  padding-left: 20px;
+ul, ol {
+  padding-left: 1.5em;
 }
 
 li {
   margin-bottom: 8px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="number"] {
+  width: 60px;
+  margin-left: 0.5em;
 }
 
 .container {

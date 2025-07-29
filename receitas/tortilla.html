@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tortilla</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <h1>Tortilla</h1>
+  <p><a href="../index.html">← Voltar para lista</a></p>
+
+  <p>
+    <label for="porcoes">Porções:</label>
+    <input type="number" id="porcoes" value="4" min="1" data-base="4" onkeydown="return false;" />
+    <span id="porcao-base">(base da receita: 4 porções)</span>
+  </p>
+
+  <h2>Ingredientes</h2>
+  <ul>
+    <li><span class="qtd" data-qtd="250">1</span> g de farinha de trigo</li>
+    <li><span class="qtd" data-qtd="35">1</span> ml de óleo (ou banha)</li>
+    <li><span class="qtd" data-qtd="120">1</span> ml de água quente</li>
+    <li><span class="qtd" data-qtd="1">2</span> colher de chá de sal</li>
+  </ul>
+
+  <h2>Modo de Preparo</h2>
+  <ol>
+    <li>Misture todos os ingredientes em uma tigela até formar uma massa homogênea.</li>
+    <li>Sove a massa por cerca de 5 minutos.</li>
+    <li>Cubra com plástico filme e leve à geladeira por 40 minutos a 1 hora.</li>
+    <li>Divida a massa em 4 partes iguais, faça bolinhas, cubra com plástico e deixe descansar por mais 10 minutos.</li>
+    <li>Com um rolo, abra cada bolinha em formato de disco.</li>
+    <li>Aqueça uma frigideira e cozinhe cada disco por cerca de 1-2 minutos de cada lado, até surgirem bolhas.</li>
+    <li>Retire da frigideira e cubra com um pano limpo.</li>
+  </ol>
+
+  <script src="../calculadora.js"></script>
+</body>
+</html>
