@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const porcoesInput = document.getElementById('porcoes');
-  const porcaoBase = parseFloat(porcoesInput.dataset.base); // usa o atributo data-base
+  const porcaoBase = parseFloat(porcoesInput.dataset.base);
   const qtdSpans = document.querySelectorAll('.qtd');
 
   function formatarQuantidade(valor) {
@@ -8,13 +8,17 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function atualizarIngredientes() {
-    let novaPorcao = porcoesInput.value === "" ? "" : parseFloat(porcoesInput.value);
-
-    if (novaPorcao === "" || isNaN(novaPorcao) || novaPorcao < 0) {
-      // Se vazio, não atualiza quantidades
+    // Permite campo vazio
+    if (porcoesInput.value === "") {
       qtdSpans.forEach(span => {
         span.textContent = span.dataset.qtd;
       });
+      return;
+    }
+
+    let novaPorcao = parseFloat(porcoesInput.value);
+
+    if (isNaN(novaPorcao) || novaPorcao < 0) {
       return;
     }
 
@@ -27,14 +31,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  porcoesInput.addEventListener('input', () => {
-    let valor = parseInt(porcoesInput.value, 10);
+  porcoesInput.addEventListener('input', atualizarIngredientes);
 
-    if (isNaN(valor) || valor < 0) {
-      valor = 0;
+  // Opcional: ao sair do campo vazio, volta para o valor base
+  porcoesInput.addEventListener('blur', () => {
+    if (porcoesInput.value === "") {
+      porcoesInput.value = porcaoBase;
+      atualizarIngredientes();
     }
-    porcoesInput.value = valor;
-    atualizarIngredientes();
   });
-  atualizarIngredientes();
 });
