@@ -28,7 +28,7 @@ Manter um registro acessível das minhas receitas favoritas, praticar um pouco d
 - **JavaScript**  
   O arquivo [`calculadora.js`](calculadora.js) permite ajustar automaticamente as quantidades dos ingredientes conforme o número de porções escolhido.
 
-- **GitHub Pages** 
+- **GitHub Pages**
   Para hospedar o site gratuitamente.
 
 ---
